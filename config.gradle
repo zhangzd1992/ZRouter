@@ -1,0 +1,32 @@
+ext{
+    isRelease = true
+
+    // 建立Map存储，对象名、key可以自定义
+    androidId = [
+            compileSdkVersion: 28,
+            buildToolsVersion: "29.0.0",
+            minSdkVersion    : 19,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+
+
+    appId = [
+            app :  "com.example.zhangzd.zrouter",
+            order:"com.example.zhangzd.order",
+            personal : "com.example.zhangzd.person"
+    ]
+
+    supportLibrary = "28.0.0"
+    dependencies = [
+            // ${supportLibrary}表示引用一个变量
+            "appcompat"      : "com.android.support:appcompat-v7:${supportLibrary}",
+            "recyclerview": "com.android.support:recyclerview-v7:${supportLibrary}",
+            "constraint"     : "com.android.support.constraint:constraint-layout:1.1.3",
+            "okhttp3"        : "com.squareup.okhttp3:okhttp:3.10.0",
+            "retrofit"       : "com.squareup.retrofit2:retrofit:2.5.0",
+            "fastjson"       : "com.alibaba:fastjson:1.2.58",
+    ]
+
+}
