@@ -1,7 +1,14 @@
-apply plugin: 'com.android.library'
+
+if (isRelease) {
+    apply plugin: 'com.android.library'
+}else {
+    apply plugin: 'com.android.application'
+}
+
 
 
 def androidId = rootProject.ext.androidId
+def appId = rootProject.ext.appId
 def dependent = rootProject.ext.dependencies
 
 
@@ -10,11 +17,19 @@ android {
     compileSdkVersion androidId.compileSdkVersion
     buildToolsVersion androidId.buildToolsVersion
     defaultConfig {
+        if (!isRelease) {
+            applicationId appId.personal
+        }
         minSdkVersion androidId.minSdkVersion
         targetSdkVersion androidId.targetSdkVersion
         versionCode androidId.versionCode
         versionName androidId.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName(), packageNameForAPT: packageNameForAPT]
+            }
+        }
     }
     buildTypes {
         release {
@@ -30,7 +45,8 @@ dependencies {
         k , v ->
             implementation v
     }
+    implementation project(':common')
 
-
-    api project(':zrouter_api')
+    implementation project(':zrouter_annotation')
+    annotationProcessor project(':zrouter_compile')
 }

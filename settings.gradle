@@ -1,2 +1,2 @@
-include ':app', ':common', ':order', ':person', ':ZRouterAnnotation', ':ZRouterCompile', ':zrouter_api'
+include ':app', ':common', ':order', ':personal', ':zrouter_annotation', ':zrouter_compile', ':zrouter_api'
 rootProject.name='ZRouter'

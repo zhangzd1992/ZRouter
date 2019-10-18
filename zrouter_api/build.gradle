@@ -32,5 +32,5 @@ dependencies {
     }
 
 
-    api project(':ZRouterAnnotation')
+    api project(':zrouter_annotation')
 }

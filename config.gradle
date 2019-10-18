@@ -1,6 +1,9 @@
 ext{
     isRelease = true
 
+    // 包名，用于存放APT生成的类文件
+    packageNameForAPT = "com.example.zhangzd.modular.apt"
+
     // 建立Map存储，对象名、key可以自定义
     androidId = [
             compileSdkVersion: 28,

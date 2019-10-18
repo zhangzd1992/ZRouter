@@ -17,6 +17,14 @@ android {
         versionCode androidId.versionCode
         versionName androidId.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName(), packageNameForAPT: packageNameForAPT]
+            }
+        }
+
     }
     buildTypes {
         release {
@@ -38,8 +46,10 @@ dependencies {
 
     if (isRelease) {
         implementation project (":order")
-        implementation project (":person")
+        implementation project (":personal")
     }
 
     implementation project(':common')
+    implementation project(':zrouter_annotation')
+    annotationProcessor project(':zrouter_compile')
 }
