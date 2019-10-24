@@ -1,8 +1,8 @@
 package com.example.zhangzd.zrouter.debug;
 
 
-import com.example.zhangzd.zrouter_api.ZRouterLoadGroup;
-import com.example.zhangzd.zrouter_api.ZRouterLoadPath;
+import com.example.zhangzd.zrouter_api.core.ZRouterLoadGroup;
+import com.example.zhangzd.zrouter_api.core.ZRouterLoadPath;
 
 import java.util.HashMap;
 import java.util.Map;
