@@ -11,7 +11,9 @@ public class RouterBean {
 
 
     public enum Type {
-        ACTIVITY
+        ACTIVITY,
+        //标价返回方法
+        CALL
     }
 
     // 枚举类型：Activity

@@ -121,6 +121,7 @@ public class ZRouterProcessor extends AbstractProcessor {
     private void parseElement(Set<? extends Element> elements) throws IOException {
         // 通过Element工具类，获取Activity、Callback类型
         TypeElement activityType = elementUtils.getTypeElement(Constants.ACTIVITY);
+        TypeElement callType = elementUtils.getTypeElement(Constants.CALL);
         // 显示类信息（获取被注解节点，类节点）这里也叫自描述 Mirror
         TypeMirror activityTypeMirror = activityType.asType();
         for (Element element : elements) {
@@ -145,7 +146,9 @@ public class ZRouterProcessor extends AbstractProcessor {
             // 类型工具类方法isSubtype，相当于instance一样
             if (typeUtils.isSubtype(typeMirror, activityTypeMirror)) {
                 routerBean.setType(RouterBean.Type.ACTIVITY);
-            } else {
+            } else if(typeUtils.isSubtype(typeMirror,callType.asType())){
+                routerBean.setType(RouterBean.Type.CALL);
+            }else {
                 throw new RuntimeException("@ZRouter注解目前仅限用于Activity类之上");
 
             }

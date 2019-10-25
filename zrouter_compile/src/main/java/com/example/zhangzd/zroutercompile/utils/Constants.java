@@ -23,11 +23,15 @@ public class Constants {
     public static final String PARAMETER_NAMR = "target";
 
     // 包名前缀封装
-    static final String BASE_PACKAGE = "com.example.zhangzd.zrouter_api.core";
+    public static final String BASE_PACKAGE = "com.example.zhangzd.zrouter_api";
     // 路由组Group加载接口
-    public static final String ZROUTE_GROUP = BASE_PACKAGE + ".ZRouterLoadGroup";
+    public static final String ZROUTE_GROUP = BASE_PACKAGE + ".core.ZRouterLoadGroup";
     // 路由组Group对应的详细Path加载接口
-    public static final String ZROUTE_PATH = BASE_PACKAGE + ".ZRouterLoadPath";
+    public static final String ZROUTE_PATH = BASE_PACKAGE + ".core.ZRouterLoadPath";
+    public static final String CALL = BASE_PACKAGE + ".core.Call";
+
+    // RouterManager类名
+    public static final String ROUTER_MANAGER = "RouterManager";
 
     // 路由组Group，参数名
     public static final String GROUP_PARAMETER_NAME = "groupMap";

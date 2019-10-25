@@ -1,5 +1,6 @@
 package com.example.zhangzd.zrouter_api;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.LruCache;
@@ -80,16 +81,38 @@ public class RouterManager {
             ZRouterLoadPath zRouterLoadPath = pathLruCache.get(path);
             if (pathLruCache.get(path) == null) {
                 Class<? extends ZRouterLoadPath> loadPathClazz = pathMap.get(group);
-                zRouterLoadPath = loadPathClazz.newInstance();
-                pathLruCache.put(path,zRouterLoadPath);
+                if (loadPathClazz != null) {
+                    zRouterLoadPath = loadPathClazz.newInstance();
+                    pathLruCache.put(path,zRouterLoadPath);
+                }
             }
 
             Map<String, RouterBean> routerBeanMap = zRouterLoadPath.loadPath();
             RouterBean routerBean = routerBeanMap.get(path);
 
             if (routerBean != null) {
-                Intent i = new Intent(context,routerBean.getClazz());
-                context.startActivity(i);
+                switch (routerBean.getType()) {
+
+                    case ACTIVITY:
+                        Intent i = new Intent(context,routerBean.getClazz());
+                        if (bundleManager.isResult()) {
+                            ((Activity)context).setResult(code);
+                            ((Activity)context).finish();
+                        }
+
+                        if (code > 0) {
+                            ((Activity)context).startActivityForResult(i,code,bundleManager.getBundle());
+                        }else {
+                            context.startActivity(i,bundleManager.getBundle());
+                        }
+
+                        break;
+
+                    case CALL:
+                        //返回的是Call接口实现类
+                        return routerBean.getClazz().newInstance();
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();

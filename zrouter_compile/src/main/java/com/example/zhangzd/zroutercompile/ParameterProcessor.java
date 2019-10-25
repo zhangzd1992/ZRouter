@@ -96,6 +96,7 @@ public class ParameterProcessor extends AbstractProcessor {
 
         TypeElement activityTypeElement = elementUtils.getTypeElement(Constants.ACTIVITY);
         TypeElement iparameterType = elementUtils.getTypeElement(Constants.IPARAMETER);
+        TypeElement callTypeElement = elementUtils.getTypeElement(Constants.CALL);
         Set<Map.Entry<TypeElement, List<Element>>> entries = tempParameterMap.entrySet();
         //方法参数
         ParameterSpec parameterSpec = ParameterSpec.builder(TypeName.OBJECT, Constants.PARAMETER_NAMR).build();
@@ -141,10 +142,19 @@ public class ParameterProcessor extends AbstractProcessor {
                             methodContent += "getIntExtra($S, " + finalValue + ")";
                         } else if(type == TypeKind.BOOLEAN.ordinal()) {
                             methodContent += "getBooleanExtra($S, " + finalValue + ")";
-                        }else {
+                        } else {
                             // t.s = t.getIntent.getStringExtra("s");
                             if (fieldTypeMirror.toString().equalsIgnoreCase(Constants.STRING)) {
                                 methodContent += "getStringExtra($S)";
+                            }else  if(typeUtils.isSubtype(fieldTypeMirror,callTypeElement.asType())) {
+                                //判断是否是Call接口的实现类
+                                //(OrderCallImpl)RouterManager.getInstance().build("/order/CallBackImpl").navigation(target)
+                                methodContent = finalValue + "= ($T)$T.getInstance().build($S).navigation(t)";
+                                methodBuilder.addStatement(methodContent,
+                                        TypeName.get(fieldTypeMirror),
+                                        ClassName.get(Constants.BASE_PACKAGE, Constants.ROUTER_MANAGER),
+                                        annotationValue);
+                                continue;
                             }
                         }
                         messager.printMessage(Diagnostic.Kind.NOTE, "methodContent: " + methodContent);

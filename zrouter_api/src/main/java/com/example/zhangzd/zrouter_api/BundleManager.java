@@ -42,6 +42,10 @@ public class BundleManager {
         this.bundle = bundle;
         return this;
     }
+    public Object navigation(Context context){
+
+        return navigation(context,-1);
+    }
 
     public Object navigation(Context context,int code){
 
@@ -49,4 +53,11 @@ public class BundleManager {
     }
 
 
+    public boolean isResult() {
+        return isResult;
+    }
+
+    public Bundle getBundle() {
+        return bundle;
+    }
 }
